@@ -10,7 +10,7 @@ family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 [window]
-decorations = "full" 
+decorations = "none"
 opacity = 1
 
 [font]
