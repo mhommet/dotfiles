@@ -22,6 +22,7 @@ create_symlink ~/dotfiles/fish ~/.config/fish
 create_symlink ~/dotfiles/tmux ~/.config/tmux
 create_symlink ~/dotfiles/doom ~/.config/doom
 create_symlink ~/dotfiles/wezterm ~/.config/wezterm
+create_symlink ~/dotfiles/alacritty ~/.config/alacritty
 
 # Check for the --i3 option
 if [[ "$1" == "--i3" ]]; then

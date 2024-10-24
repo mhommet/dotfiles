@@ -18,6 +18,9 @@ c.scrollback_lines = 3000
 c.default_workspace = "main"
 c.status_update_interval = 2000
 
+-- Clipboard
+
+
 -- appearance
 appearance.apply_to_config(c)
 
