@@ -6,8 +6,8 @@ family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 [window]
-decorations = "full" 
-opacity = 1
+decorations = "none"
+opacity = 0.95
 
 [font]
 size = 12
