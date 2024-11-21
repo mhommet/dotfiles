@@ -1,1 +1,0 @@
---i3 to install i3 polybar and rofi
