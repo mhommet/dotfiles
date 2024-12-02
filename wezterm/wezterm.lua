@@ -1,14 +1,17 @@
 local wez = require "wezterm"
 local c = {}
-
 if wez.config_builder then
   c = wez.config_builder()
 end
 
--- Appearance
+-- Appearance 
 c.font = wez.font "JetBrainsMono Nerd Font"
 c.font_size = 13
-c.color_scheme = "Catppuccin Mocha"
+c.color_scheme = "rose-pine"
+local scheme = wez.color.get_builtin_schemes()['rose-pine']
+c.colors = {
+  split = scheme.ansi[2],
+}
 c.window_background_opacity = 0.9
 c.inactive_pane_hsb = { brightness = 0.9 }
 c.window_padding = { left = "1cell", right = "1cell", top = 0, bottom = 0 }
