@@ -3,7 +3,7 @@
 DOTFILES_DIR=~/dotfiles
 CONFIG_DIR=~/.config
 
-for dir in doom fish nvim tmux wezterm; do
+for dir in doom fish nvim kitty; do
     TARGET=$CONFIG_DIR/$dir
     SOURCE=$DOTFILES_DIR/$dir
 
