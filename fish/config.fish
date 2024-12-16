@@ -24,19 +24,4 @@ alias dkexec='/usr/bin/docker compose exec'
 alias dkwork='/usr/bin/docker compose exec workspace bash'
 alias dkrun='/usr/bin/docker compose run --rm'
 
-if status is-interactive
-    set -l onedark_options '-b'
-
-    if set -q VIM
-        # Using from vim/neovim.
-        set onedark_options "-256"
-    else if string match -iq "eterm*" $TERM
-        # Using from emacs.
-        function fish_title; true; end
-        set onedark_options "-256"
-    end
-
-    set_onedark $onedark_options
-end
-
 starship init fish | source
