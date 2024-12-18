@@ -8,8 +8,8 @@ return {
 	-- macos_window_background_blur = 40,
 	macos_window_background_blur = 30,
 	
-	window_background_opacity = 0.92,
-	-- window_background_opacity = 1.0,
+	-- window_background_opacity = 0.92,
+	window_background_opacity = 1.0,
 	-- window_background_opacity = 0.78,
 	-- window_background_opacity = 0.20,
 	window_decorations = 'RESIZE',
