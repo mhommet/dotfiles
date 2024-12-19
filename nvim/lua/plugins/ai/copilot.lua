@@ -1,1 +1,1 @@
-return { 'github/copilot.vim', event = 'BufRead' }
+return { 'github/copilot.vim', event = 'VimEnter' }
