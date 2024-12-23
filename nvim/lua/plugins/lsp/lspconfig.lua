@@ -34,7 +34,6 @@ return {
             'emmet_ls', -- Emmet (HTML, CSS, etc.)
             'twiggy_language_server', -- Twig
             'lua_ls', -- Lua
-            'clangd', -- C, C++, Objective-C
             }
         }
 
@@ -47,7 +46,6 @@ return {
             emmet_ls = {},
             twiggy_language_server = {},
             lua_ls = {},
-            clangd = {}
         }
 
         for server, config in pairs(servers) do

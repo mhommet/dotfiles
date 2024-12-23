@@ -25,3 +25,8 @@ alias dkwork='/usr/bin/docker compose exec workspace bash'
 alias dkrun='/usr/bin/docker compose run --rm'
 
 starship init fish | source
+
+nerdfetch
+
+# Remove default fish greeting
+set fish_greeting
