@@ -10,7 +10,7 @@ DOTFILES_DIR=~/dotfiles
 CONFIG_DIR=~/.config
 
 # Liens de configuration principaux
-for dir in doom fish nvim wezterm tmux; do
+for dir in doom fish nvim wezterm tmux ghostty; do
     TARGET=$CONFIG_DIR/$dir
     SOURCE=$DOTFILES_DIR/$dir
 
