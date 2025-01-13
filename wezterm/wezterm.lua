@@ -4,8 +4,6 @@ return {
 	enable_tab_bar = false,
 	font_size = 13.0,
 	font = wezterm.font('JetBrains Mono'),
-	macos_window_background_blur = 30,
-	
 	window_background_opacity = 0.95,
 	window_decorations = 'RESIZE',
 	keys = {
