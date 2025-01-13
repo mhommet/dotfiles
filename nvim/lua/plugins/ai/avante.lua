@@ -46,7 +46,6 @@ return {
   config = function()
     require('avante').setup  {
       provider = "copilot",
-      auto_suggestions_provider = "copilot",
     }
   end,
 }
