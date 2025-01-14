@@ -1,16 +1,11 @@
 return {
-    'catppuccin/nvim',
-    name = 'catppuccin',
+    'Mofiqul/dracula.nvim',
+    name = 'dracula',
     priority = 1000,
     config = function()
-        require('catppuccin').setup  {
-            transparent_background = true,
-
-            -- Lualine options --
-            lualine = {
-                transparent = true, -- lualine center bar transparency
-            },
+        require('dracula').setup  {
+            transparent_bg = true,
         }
-        vim.cmd.colorscheme 'catppuccin'
+        vim.cmd.colorscheme 'dracula'
     end,
 }

@@ -1,10 +1,10 @@
 local wezterm = require 'wezterm'
 return {
-	color_scheme = 'Catppuccin Mocha',
+	color_scheme = 'Dracula',
 	enable_tab_bar = false,
 	font_size = 13.0,
 	font = wezterm.font('JetBrains Mono'),
-	window_background_opacity = 0.95,
+	window_background_opacity = 1,
 	window_decorations = 'RESIZE',
 	keys = {
 		{
