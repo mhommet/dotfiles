@@ -1,6 +1,7 @@
 local wezterm = require 'wezterm'
+local theme = wezterm.plugin.require('https://github.com/neapsix/wezterm').main
 return {
-	color_scheme = 'Catppuccin Mocha',
+	colors = theme.colors(),
 	enable_tab_bar = false,
 	font_size = 13.0,
 	font = wezterm.font('JetBrains Mono'),

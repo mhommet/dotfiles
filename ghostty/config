@@ -1,7 +1,7 @@
 font-family = "JetBrainsMono Nerd Font"
 window-decoration = false
 font-size = 14
-theme = catppuccin-mocha
+theme = rose-pine
 background-opacity = 0.9
 window-padding-x = 10
 window-padding-y = 10

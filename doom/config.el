@@ -4,7 +4,7 @@
 
 (add-to-list 'custom-theme-load-path "~/dotfiles/doom/themes/atom-one-dark-theme/")
 
-(setq doom-theme 'doom-dracula
+(setq doom-theme 'doom-rose-pine
       doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15))
 
 ;; Set a default indentation level
