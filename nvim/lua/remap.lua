@@ -52,4 +52,3 @@ vim.api.nvim_set_keymap('n', '<leader>ps', ':Pointage sortie<CR>', {
 
 -- RipSubstitute
 vim.keymap.set("n", "<leader>rr", ":RipSubstitute<CR>")
-
