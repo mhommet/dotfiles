@@ -1,11 +1,10 @@
 local wezterm = require 'wezterm'
-local theme = wezterm.plugin.require('https://github.com/neapsix/wezterm').main
 return {
-	colors = theme.colors(),
+  color_scheme = "Catppuccin Mocha",
 	enable_tab_bar = false,
 	font_size = 13.0,
 	font = wezterm.font('JetBrains Mono'),
-	window_background_opacity = 0.98,
+	window_background_opacity = 0.99,
 	window_decorations = 'RESIZE',
 	keys = {
 		{
