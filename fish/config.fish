@@ -12,6 +12,9 @@ alias gtp="git push"
 alias gpl="git pull"
 alias gfc="git fetch"
 
+# WSL
+alias work="cd /mnt/c/Users/milan/Workspace/"
+
 # Alias TIC
 alias ll='ls --color=auto -l'
 alias docker-compose='/usr/bin/docker compose'
