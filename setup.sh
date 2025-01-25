@@ -4,7 +4,7 @@ DOTFILES_DIR=~/dotfiles
 CONFIG_DIR=~/.config
 
 # Liens de configuration principaux
-for dir in doom fish nvim wezterm tmux ghostty; do
+for dir in nvim wezterm ghostty; do
     TARGET=$CONFIG_DIR/$dir
     SOURCE=$DOTFILES_DIR/$dir
 
@@ -21,3 +21,10 @@ STARSHIP_CONFIG=~/.config/starship.toml
 [ -e "$STARSHIP_CONFIG" ] && rm -f "$STARSHIP_CONFIG"
 ln -s "$DOTFILES_DIR/starship.toml" "$STARSHIP_CONFIG"
 echo "Lien créé : $DOTFILES_DIR/starship.toml -> $STARSHIP_CONFIG"
+
+# Lien pour .zshrc dans le home
+ZSHRC=$HOME/.zshrc
+[ -e "$ZSHRC" ] && rm -f "$ZSHRC"
+ln -s "$DOTFILES_DIR/.zshrc" "$ZSHRC"
+echo "Lien créé : $DOTFILES_DIR/.zshrc -> $ZSHRC"
+

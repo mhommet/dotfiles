@@ -27,9 +27,14 @@ alias dkexec='/usr/bin/docker compose exec'
 alias dkwork='/usr/bin/docker compose exec workspace bash'
 alias dkrun='/usr/bin/docker compose run --rm'
 
-starship init fish | source
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
+
+export ANDROID_HOME=/opt/android-sdk
+export ANDROID_SDK_ROOT=/opt/android-sdk
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+
+eval "$(starship init zsh)"
 
 nerdfetch
 
-# Remove default fish greeting
-set fish_greeting
