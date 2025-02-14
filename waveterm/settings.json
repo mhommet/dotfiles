@@ -1,0 +1,6 @@
+{
+  "autoupdate:channel": "latest",
+  "telemetry:enabled": false,
+  "term:fontsize": 16,
+  "term:fontfamily": "JetBrainsMono Nerd Font"
+}

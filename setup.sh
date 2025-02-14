@@ -4,7 +4,7 @@ DOTFILES_DIR=~/dotfiles
 CONFIG_DIR=~/.config
 
 # Liens de configuration principaux
-for dir in nvim wezterm ghostty fish; do
+for dir in waveterm fish; do
     TARGET=$CONFIG_DIR/$dir
     SOURCE=$DOTFILES_DIR/$dir
 
