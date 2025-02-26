@@ -8,6 +8,11 @@ alias gfc="git fetch"
 # WSL
 alias work="cd /mnt/c/Users/milan/Workspace/"
 
+# VIM
+alias nvim="$HOME/.local/share/neovim/bin/nvim"
+alias vim="nvim"
+alias v="nvim"
+
 # Alias TIC
 alias ll='ls --color=auto -l'
 alias docker-compose='/usr/bin/docker compose'
