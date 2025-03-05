@@ -7,3 +7,6 @@ map("i", "jk", "<ESC>")
 
 -- Select all with ctrl + a
 map("n", "<C-a>", "ggVG", { noremap = true })
+
+-- Toggle Tree with space + e
+map("n", "<space>e", ":NvimTreeToggle<CR>", { noremap = true })
