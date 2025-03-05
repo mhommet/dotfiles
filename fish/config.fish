@@ -5,8 +5,8 @@ alias gtp="git push"
 alias gpl="git pull"
 alias gfc="git fetch"
 
-# WSL
-alias work="cd /mnt/c/Users/milan/Workspace/"
+# Emacs
+set -x PATH $HOME/.config/emacs/bin $PATH
 
 # VIM
 alias nvim="$HOME/.local/share/neovim/bin/nvim"
