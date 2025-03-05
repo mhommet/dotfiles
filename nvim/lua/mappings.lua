@@ -10,3 +10,9 @@ map("n", "<C-a>", "ggVG", { noremap = true })
 
 -- Toggle Tree with space + e
 map("n", "<space>e", ":NvimTreeToggle<CR>", { noremap = true })
+
+-- Find file with space + space
+map("n", "<space><space>", ":Telescope find_files<CR>", { noremap = true })
+
+-- Live grep with space + f + g
+map("n", "<space>fg", ":Telescope live_grep<CR>", { noremap = true })
