@@ -43,3 +43,7 @@ starship init fish | source
 
 # Remove default fish greeting
 set fish_greeting
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH

@@ -73,21 +73,70 @@ return {
             }
         end,
     },
-    -- Rip Substitute: Advanced search and replace
     {
-        'chrisgrieser/nvim-rip-substitute',
-        config = function()
-            require('rip-substitute').setup {
-                on_open = function()
-                    -- Ensure unique buffer name for RipSubstitute
-                    local buf_name = 'RipSubstitute'
-                    if vim.fn.bufexists(buf_name) == 1 then
-                        vim.cmd('bwipeout ' .. buf_name)
-                    end
-                end,
-            }
-        end,
+      "chrisgrieser/nvim-rip-substitute",
+      cmd = "RipSubstitute",
+      opts = {},
+      keys = {
+        {
+          "<leader>fs",
+          function() require("rip-substitute").sub() end,
+          mode = { "n", "x" },
+          desc = " rip substitute",
+        },
+      },
+      config = function()
+        -- default settings
+        require("rip-substitute").setup {
+          popupWin = {
+            title = " rip-substitute",
+            border = "single",
+            matchCountHlGroup = "Keyword",
+            noMatchHlGroup = "ErrorMsg",
+            position = "bottom", ---@type "top"|"bottom"
+            hideSearchReplaceLabels = false,
+            hideKeymapHints = false,
+          },
+          prefill = {
+            normal = "cursorWord", ---@type "cursorWord"|false
+            visual = "selectionFirstLine", ---@type "selectionFirstLine"|false (does not work with ex-command – see README)
+            startInReplaceLineIfPrefill = false,
+            alsoPrefillReplaceLine = false,
+          },
+          keymaps = { -- normal mode (if not stated otherwise)
+            abort = "q",
+            confirm = "<CR>",
+            insertModeConfirm = "<C-CR>",
+            prevSubstitutionInHistory = "<Up>",
+            nextSubstitutionInHistory = "<Down>",
+            toggleFixedStrings = "<C-f>", -- ripgrep's `--fixed-strings`
+            toggleIgnoreCase = "<C-c>", -- ripgrep's `--ignore-case`
+            openAtRegex101 = "R",
+            showHelp = "?",
+          },
+          incrementalPreview = {
+            matchHlGroup = "IncSearch",
+            rangeBackdrop = {
+              enabled = true,
+              blend = 50, -- between 0 and 100
+            },
+          },
+          regexOptions = {
+            startWithFixedStringsOn = false,
+            startWithIgnoreCase = false,
+            pcre2 = true, -- enables lookarounds and backreferences, but slightly slower
+            autoBraceSimpleCaptureGroups = true, -- disable if using named capture groups (see README for details)
+          },
+          editingBehavior = {
+            -- Typing `()` in the `search` line, automatically adds `$n` to the `replace` line.
+            autoCaptureGroups = false,
+          },
+          notification = {
+            onSuccess = true,
+            icon = "",
+          },
+        }
+      end,
     },
-
 }
 
