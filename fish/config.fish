@@ -9,7 +9,7 @@ alias gfc="git fetch"
 set -x PATH $HOME/.config/emacs/bin $PATH
 
 # VIM
-alias nvim="$HOME/.local/share/neovim/bin/nvim"
+#alias nvim="$HOME/.local/share/neovim/bin/nvim" # No need on arch
 alias vim="nvim"
 alias v="nvim"
 
