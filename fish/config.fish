@@ -5,11 +5,8 @@ alias gtp="git push"
 alias gpl="git pull"
 alias gfc="git fetch"
 
-# Emacs
-set -x PATH $HOME/.config/emacs/bin $PATH
-
 # VIM
-#alias nvim="$HOME/.local/share/neovim/bin/nvim" # No need on arch
+alias nvim="$HOME/.local/share/neovim/bin/nvim" # No need on arch
 alias vim="nvim"
 alias v="nvim"
 
@@ -31,10 +28,6 @@ set -x PATH $JAVA_HOME/bin $PATH
 set -x ANDROID_HOME /opt/android-sdk
 set -x ANDROID_SDK_ROOT /opt/android-sdk
 set -x PATH $ANDROID_HOME/platform-tools $PATH
-
-# Set python3.8 as default when I type python
-set -x PYTHON /usr/local/bin/python3.8
-alias python='/usr/local/bin/python3.8'
 
 # TIC - Pointage script
 alias pointage="/home/mhommet/pointage/pointage"
