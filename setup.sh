@@ -22,3 +22,5 @@ STARSHIP_CONFIG=~/.config/starship.toml
 ln -s "$DOTFILES_DIR/starship.toml" "$STARSHIP_CONFIG"
 echo "Lien créé : $DOTFILES_DIR/starship.toml -> $STARSHIP_CONFIG"
 
+# Install fisher and dracula theme
+fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher && fisher install dracula/fish"
