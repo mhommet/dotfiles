@@ -24,9 +24,6 @@ style = "bold purple"
 format = "[$user]($style) on "
 style_user = "bold cyan"
 
-# Use the color palette
-palette = "dracula"
-
 # Define Dracula color palette
 [palettes.dracula]
 background = "#282a36"
