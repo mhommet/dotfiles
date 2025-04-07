@@ -1,16 +1,22 @@
-# Git
+# Basic ZSH Configuration
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
+# Git aliases
 alias gst="git status"
 alias gco="git checkout"
 alias gtp="git push"
 alias gpl="git pull"
 alias gfc="git fetch"
 
-# VIM
+# VIM aliases
 alias nvim="$HOME/.local/share/neovim/bin/nvim" # No need on arch
 alias vim="nvim"
 alias v="nvim"
 
-# Alias TIC
+# TIC aliases
 alias ll='ls --color=auto -l'
 alias docker-compose='/usr/bin/docker compose'
 alias dkc='UID_WORKER=$(id -u) GID_WORKER=$(id -g) /usr/bin/docker compose'
@@ -23,23 +29,24 @@ alias dkwork='/usr/bin/docker compose exec workspace bash'
 alias dkrun='/usr/bin/docker compose run --rm'
 
 # Flutter
-set -x JAVA_HOME /usr/lib/jvm/java-17-openjdk
-set -x PATH $JAVA_HOME/bin $PATH
-set -x ANDROID_HOME /opt/android-sdk
-set -x ANDROID_SDK_ROOT /opt/android-sdk
-set -x PATH $ANDROID_HOME/platform-tools $PATH
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
+export ANDROID_HOME=/opt/android-sdk
+export ANDROID_SDK_ROOT=/opt/android-sdk
+export PATH=$ANDROID_HOME/platform-tools:$PATH
 
 # TIC - Pointage script
 alias pointage="/home/mhommet/pointage/pointage"
 
-starship init fish | source
-
-# Remove default fish greeting
-set fish_greeting
-
 # bun
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH
 
 # GO
-set --export PATH /usr/local/go/bin $PATH
+export PATH=/usr/local/go/bin:$PATH
+
+# FZF key bindings for ZSH
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Starship prompt
+eval "$(starship init zsh)" 
