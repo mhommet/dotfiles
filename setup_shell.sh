@@ -21,6 +21,6 @@ mkdir -p "$WARP_THEMES_DIR"
 echo "Dossier de thèmes Warp créé : $WARP_THEMES_DIR"
 
 # Copie du thème personnalisé
-cp "$DOTFILES_DIR/skeletor_warp.yaml" "$WARP_THEMES_DIR/skeletor.yaml"
-echo "Thème copié : $DOTFILES_DIR/skeletor_warp.yaml -> $WARP_THEMES_DIR/skeletor.yaml"
+cp "$DOTFILES_DIR/One_Dark.yaml" "$WARP_THEMES_DIR/One_Dark.yaml"
+echo "Thème copié : $DOTFILES_DIR/One_Dark.yaml -> $WARP_THEMES_DIR/One_Dark.yaml"
 echo "Le thème sera disponible après redémarrage de Warp ou après quelques minutes." 
