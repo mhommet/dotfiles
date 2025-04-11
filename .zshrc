@@ -48,5 +48,8 @@ export PATH=/usr/local/go/bin:$PATH
 # FZF key bindings for ZSH
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Doom emacs
+export PATH=$HOME/.config/emacs/bin:$PATH
+
 # Starship prompt
 eval "$(starship init zsh)" 

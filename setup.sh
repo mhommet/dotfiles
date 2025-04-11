@@ -21,6 +21,12 @@ mkdir -p "$WARP_THEMES_DIR"
 echo "Dossier de thèmes Warp créé : $WARP_THEMES_DIR"
 
 # Copie du thème personnalisé
-cp "$DOTFILES_DIR/One_Dark.yaml" "$WARP_THEMES_DIR/One_Dark.yaml"
-echo "Thème copié : $DOTFILES_DIR/One_Dark.yaml -> $WARP_THEMES_DIR/One_Dark.yaml"
+cp "$DOTFILES_DIR/catppuccin_mocha.yml" "$WARP_THEMES_DIR/catppuccin_mocha.yml"
+echo "Thème copié : $DOTFILES_DIR/catppuccin_mocha.yml -> $WARP_THEMES_DIR/catppuccin_mocha.yml"
 echo "Le thème sera disponible après redémarrage de Warp ou après quelques minutes." 
+
+# Lien pour doom emacs
+DOOM_DIR=$HOME/.config/doom
+[ -e "$DOOM_DIR" ] && rm -f "$DOOM_DIR"
+ln -s "$DOTFILES_DIR/doom" "$DOOM_DIR"
+echo "Lien créé : $DOTFILES_DIR/doom -> $DOOM_DIR"
