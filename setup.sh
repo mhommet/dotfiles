@@ -30,3 +30,5 @@ DOOM_DIR=$HOME/.config/doom
 [ -e "$DOOM_DIR" ] && rm -f "$DOOM_DIR"
 ln -s "$DOTFILES_DIR/doom" "$DOOM_DIR"
 echo "Lien créé : $DOTFILES_DIR/doom -> $DOOM_DIR"
+
+doom sync
