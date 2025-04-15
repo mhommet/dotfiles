@@ -95,41 +95,65 @@ return {
 				{ '<leader>r', group = 'Refactor' },
 				{ '<leader>s', group = 'Search' },
 				{ '<leader>w', group = 'Workspace' },
-				{ '<leader>a', group = 'Avante' },
 				{ '<leader>t', group = 'Toggle' },
 				{ '<leader>h', group = 'Git Hunk', mode = { 'n', 'v' } },
 			}
 		end,
 	},
 	{
-		"goolord/alpha-nvim",
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-
+		'goolord/alpha-nvim',
 		config = function()
 			local alpha = require("alpha")
-			local dashboard = require("alpha.themes.startify")
+			local dashboard = require("alpha.themes.dashboard")
 
-			dashboard.section.header.val = {
-				[[                                                                       ]],
-				[[                                                                       ]],
-				[[                                                                       ]],
-				[[                                                                       ]],
-				[[                                                                     ]],
-				[[       ████ ██████           █████      ██                     ]],
-				[[      ███████████             █████                             ]],
-				[[      █████████ ███████████████████ ███   ███████████   ]],
-				[[     █████████  ███    █████████████ █████ ██████████████   ]],
-				[[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
-				[[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
-				[[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
-				[[                                                                       ]],
-				[[                                                                       ]],
-				[[                                                                       ]],
+			-- Créer l'art ASCII
+			local art = {
+				"                                                       ",
+				"                                                       ",
+				"                                                       ",
+				"             ⣴⣶⣤⡤⠦⣤⣀⣤⠆     ⣈⣭⣿⣶⣿⣦⣼⣆                    ",
+				"              ⠉⠻⢿⣿⠿⣿⣿⣶⣦⠤⠄⡠⢾⣿⣿⡿⠋⠉⠉⠻⣿⣿⡛⣦                 ",
+				"                    ⠈⢿⣿⣟⠦ ⣾⣿⣿⣷    ⠻⠿⢿⣿⣧⣄               ",
+				"                     ⣸⣿⣿⢧ ⢻⠻⣿⣿⣷⣄⣀⠄⠢⣀⡀⠈⠙⠿⠄              ",
+				"                    ⢠⣿⣿⣿⠈    ⣻⣿⣿⣿⣿⣿⣿⣿⣛⣳⣤⣀⣀             ",
+				"             ⢠⣧⣶⣥⡤⢄ ⣸⣿⣿⠘  ⢀⣴⣿⣿⡿⠛⣿⣿⣧⠈⢿⠿⠟⠛⠻⠿⠄            ",
+				"            ⣰⣿⣿⠛⠻⣿⣿⡦⢹⣿⣷   ⢊⣿⣿⡏  ⢸⣿⣿⡇ ⢀⣠⣄⣾⠄             ",
+				"           ⣠⣿⠿⠛ ⢀⣿⣿⣷⠘⢿⣿⣦⡀ ⢸⢿⣿⣿⣄ ⣸⣿⣿⡇⣪⣿⡿⠿⣿⣷⡄            ",
+				"           ⠙⠃   ⣼⣿⡟  ⠈⠻⣿⣿⣦⣌⡇⠻⣿⣿⣷⣿⣿⣿ ⣿⣿⡇ ⠛⠻⢷⣄           ",
+				"                ⢻⣿⣿⣄   ⠈⠻⣿⣿⣿⣷⣿⣿⣿⣿⣿⡟ ⠫⢿⣿⡆               ",
+				"                 ⠻⣿⣿⣿⣿⣶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⡟⢀⣀⣤⣾⡿⠃               ",
+				"                                                       ",
+				[[]],
 			}
 
+			-- Calculer l'espace vertical pour centrer l'art
+			local total_lines = vim.o.lines             -- hauteur totale de la fenêtre
+			local art_lines = #art                      -- nombre de lignes de l'art
+			local padding_top = math.floor((total_lines - art_lines) / 2) -
+			2                                           -- réduire de 2 pour remonter l'art
+			local padding_bottom = total_lines - art_lines -
+			padding_top                                 -- s'assurer qu'il reste un espace égal en bas
+
+			-- Remplir l'espace avec des lignes vides avant l'art
+			local centered_art = {}
+			for i = 1, padding_top do
+				table.insert(centered_art, "") -- ajouter des lignes vides avant l'art
+			end
+			for _, line in ipairs(art) do
+				table.insert(centered_art, line) -- ajouter l'art ASCII
+			end
+			for i = 1, padding_bottom do
+				table.insert(centered_art, "") -- ajouter des lignes vides après l'art
+			end
+
+			-- Assigner l'art centré à la section header
+			dashboard.section.header.val = centered_art
+
+			-- Vide les boutons
+			dashboard.section.buttons.val = {}
+
+			-- Configurer Alpha
 			alpha.setup(dashboard.opts)
-		end,
-	},
+		end
+	}
 }
