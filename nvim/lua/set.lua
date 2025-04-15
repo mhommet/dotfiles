@@ -25,6 +25,12 @@ vim.opt.listchars = {      -- Define whitespace display characters
     nbsp = '␣',
 }
 
+-- Tab settings
+vim.opt.tabstop = 4        -- Width of a tab character
+vim.opt.shiftwidth = 4     -- Width of indentation
+vim.opt.expandtab = true   -- Use spaces instead of tabs
+vim.opt.softtabstop = 4    -- Backspace removes 4 spaces
+
 -- UI settings
 vim.opt.cursorline = true    -- Highlight the current line
 vim.opt.signcolumn = 'yes'   -- Always show the sign column
