@@ -36,30 +36,32 @@ return {
 		opts = function()
 			require('lualine').setup {
 				options = {
-					icons_enabled = true,
-					theme = 'auto',
-					component_separators = { left = '', right = '' },
-					section_separators = { left = '', right = '' },
-					disabled_filetypes = { statusline = {}, winbar = {} },
-					always_divide_middle = true,
-					globalstatus = false,
+					theme = "auto",
+					component_separators = '',
+					section_separators = { left = '', right = '' },
 				},
 				sections = {
-					lualine_a = { 'mode' },
-					lualine_b = { 'branch', 'diff', 'diagnostics' },
-					lualine_c = { 'filename' },
-					lualine_x = { 'encoding', 'fileformat', 'filetype' },
-					lualine_y = { 'progress' },
-					lualine_z = { 'location' },
+					lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
+					lualine_b = { 'filename', 'branch' },
+					lualine_c = {
+						'%=', --[[ add your center components here in place of this comment ]]
+					},
+					lualine_x = {},
+					lualine_y = { 'filetype', 'progress' },
+					lualine_z = {
+						{ 'location', separator = { right = '' }, left_padding = 2 },
+					},
 				},
 				inactive_sections = {
-					lualine_a = {},
+					lualine_a = { 'filename' },
 					lualine_b = {},
-					lualine_c = { 'filename' },
-					lualine_x = { 'location' },
+					lualine_c = {},
+					lualine_x = {},
 					lualine_y = {},
-					lualine_z = {},
+					lualine_z = { 'location' },
 				},
+				tabline = {},
+				extensions = {},
 			}
 		end,
 	},
@@ -106,33 +108,35 @@ return {
 			local alpha = require("alpha")
 			local dashboard = require("alpha.themes.dashboard")
 
-			-- Créer l'art ASCII
+			-- Nouveau logo ASCII
 			local art = {
-				"                                                       ",
-				"                                                       ",
-				"                                                       ",
-				"             ⣴⣶⣤⡤⠦⣤⣀⣤⠆     ⣈⣭⣿⣶⣿⣦⣼⣆                    ",
-				"              ⠉⠻⢿⣿⠿⣿⣿⣶⣦⠤⠄⡠⢾⣿⣿⡿⠋⠉⠉⠻⣿⣿⡛⣦                 ",
-				"                    ⠈⢿⣿⣟⠦ ⣾⣿⣿⣷    ⠻⠿⢿⣿⣧⣄               ",
-				"                     ⣸⣿⣿⢧ ⢻⠻⣿⣿⣷⣄⣀⠄⠢⣀⡀⠈⠙⠿⠄              ",
-				"                    ⢠⣿⣿⣿⠈    ⣻⣿⣿⣿⣿⣿⣿⣿⣛⣳⣤⣀⣀             ",
-				"             ⢠⣧⣶⣥⡤⢄ ⣸⣿⣿⠘  ⢀⣴⣿⣿⡿⠛⣿⣿⣧⠈⢿⠿⠟⠛⠻⠿⠄            ",
-				"            ⣰⣿⣿⠛⠻⣿⣿⡦⢹⣿⣷   ⢊⣿⣿⡏  ⢸⣿⣿⡇ ⢀⣠⣄⣾⠄             ",
-				"           ⣠⣿⠿⠛ ⢀⣿⣿⣷⠘⢿⣿⣦⡀ ⢸⢿⣿⣿⣄ ⣸⣿⣿⡇⣪⣿⡿⠿⣿⣷⡄            ",
-				"           ⠙⠃   ⣼⣿⡟  ⠈⠻⣿⣿⣦⣌⡇⠻⣿⣿⣷⣿⣿⣿ ⣿⣿⡇ ⠛⠻⢷⣄           ",
-				"                ⢻⣿⣿⣄   ⠈⠻⣿⣿⣿⣷⣿⣿⣿⣿⣿⡟ ⠫⢿⣿⡆               ",
-				"                 ⠻⣿⣿⣿⣿⣶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⡟⢀⣀⣤⣾⡿⠃               ",
-				"                                                       ",
+				[[]],
+				[[                      ██████                     ]],
+				[[                  ████▒▒▒▒▒▒████                 ]],
+				[[                ██▒▒▒▒▒▒▒▒▒▒▒▒▒▒██               ]],
+				[[              ██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██             ]],
+				[[            ██▒▒▒▒▒▒▒▒    ▒▒▒▒▒▒▒▒               ]],
+				[[            ██▒▒▒▒▒▒  ▒▒▓▓▒▒▒▒▒▒  ▓▓▓▓           ]],
+				[[            ██▒▒▒▒▒▒  ▒▒▓▓▒▒▒▒▒▒  ▒▒▓▓           ]],
+				[[          ██▒▒▒▒▒▒▒▒▒▒    ▒▒▒▒▒▒▒▒    ██         ]],
+				[[          ██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██         ]],
+				[[          ██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██         ]],
+				[[          ██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██         ]],
+				[[          ██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██         ]],
+				[[          ██▒▒██▒▒▒▒▒▒██▒▒▒▒▒▒▒▒██▒▒▒▒██         ]],
+				[[          ████  ██▒▒██  ██▒▒▒▒██  ██▒▒██         ]],
+				[[          ██      ██      ████      ████         ]],
+				[[                                                 ]],
 				[[]],
 			}
 
 			-- Calculer l'espace vertical pour centrer l'art
-			local total_lines = vim.o.lines             -- hauteur totale de la fenêtre
-			local art_lines = #art                      -- nombre de lignes de l'art
+			local total_lines = vim.o.lines -- hauteur totale de la fenêtre
+			local art_lines = #art -- nombre de lignes de l'art
 			local padding_top = math.floor((total_lines - art_lines) / 2) -
-			2                                           -- réduire de 2 pour remonter l'art
+			    2     -- réduire de 2 pour remonter l'art
 			local padding_bottom = total_lines - art_lines -
-			padding_top                                 -- s'assurer qu'il reste un espace égal en bas
+			    padding_top -- s'assurer qu'il reste un espace égal en bas
 
 			-- Remplir l'espace avec des lignes vides avant l'art
 			local centered_art = {}
