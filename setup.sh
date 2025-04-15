@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Configuration des variables globales
+# Global variables configuration
 DOTFILES_DIR=~/dotfiles
 CONFIG_DIR=~/.config
 TOTAL_STEPS=10
 CURRENT_STEP=0
 
-# Fonction pour détecter la distribution
+# Function to detect distribution
 detect_distro() {
     if [[ -f /etc/debian_version ]]; then
         echo "debian"
@@ -17,7 +17,7 @@ detect_distro() {
     fi
 }
 
-# Fonction pour installer un paquet selon la distribution
+# Function to install a package according to the distribution
 install_package() {
     local package=$1
     case $(detect_distro) in
@@ -30,35 +30,35 @@ install_package() {
     esac
 }
 
-# Fonction pour afficher la progression
+# Function to display progress
 progress() {
     CURRENT_STEP=$((CURRENT_STEP + 1))
     PERCENT=$((CURRENT_STEP * 100 / TOTAL_STEPS))
     printf "\r[%-50s] %d%%" "$(printf '#%.0s' $(seq 1 $((PERCENT/2))))" "$PERCENT"
 }
 
-# Fonction pour vérifier si une commande existe
+# Function to check if a command exists
 command_exists() {
     command -v "$1" &> /dev/null
 }
 
-echo "🚀 Démarrage de l'installation des dotfiles..."
+echo "🚀 Starting dotfiles installation..."
 progress
 
-# Installation des outils de base
-echo -e "\n📦 Installation des outils de base..."
+# Installing basic tools
+echo -e "\n📦 Installing basic tools..."
 
-# Installation de tmux
+# Installing tmux
 if ! command_exists tmux; then
-    echo "🚧 Installation de tmux..."
+    echo "🚧 Installing tmux..."
     install_package tmux
 else
-    echo "✅ tmux est déjà installé"
+    echo "✅ tmux is already installed"
 fi
 progress
 
-# Installation des dépendances de développement
-echo -e "\n🔧 Installation des outils de développement..."
+# Installing development dependencies
+echo -e "\n🔧 Installing development tools..."
 case $(detect_distro) in
     "debian")
         install_package gcc
@@ -71,73 +71,86 @@ case $(detect_distro) in
 esac
 progress
 
-# Installation de rustup pour la gestion des versions de Neovim
+# Installing rustup for Neovim version management
 if ! command_exists rustup; then
-    echo "🚧 Installation de rustup..."
+    echo "🚧 Installing rustup..."
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     source "$HOME/.cargo/env"
 else
-    echo "✅ rustup est déjà installé"
+    echo "✅ rustup is already installed"
 fi
 progress
 
-# Installation de bob pour la gestion des versions de Neovim
+# Installing bob for Neovim version management
 if ! command_exists bob; then
-    echo "🚧 Installation de bob..."
+    echo "🚧 Installing bob..."
     cargo install bob-nvim
     bob use latest
 else
-    echo "✅ bob est déjà installé"
+    echo "✅ bob is already installed"
 fi
 progress
 
-# Installation de kitty
-if ! command_exists kitty; then
-    echo "🚧 Installation de kitty..."
-    install_package kitty
+# Installing wezterm
+if ! command_exists wezterm; then
+    echo "🚧 Installing wezterm..."
+    case $(detect_distro) in
+        "debian")
+            # Wezterm is not in Debian default repositories, using GitHub
+            echo "📥 Downloading wezterm from GitHub..."
+            TEMP_DEB=$(mktemp)
+            curl -L -o "$TEMP_DEB" "https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Debian11.deb"
+            sudo apt install -y "$TEMP_DEB"
+            rm "$TEMP_DEB"
+            ;;
+        "arch")
+            # Using pacman for Arch
+            install_package wezterm
+            ;;
+    esac
 else
-    echo "✅ kitty est déjà installé"
+    echo "✅ wezterm is already installed"
 fi
 progress
 
-# Installation de fish
+# Installing fish
 if ! command_exists fish; then
-    echo "🚧 Installation de fish..."
+    echo "🚧 Installing fish..."
     install_package fish
 else
-    echo "✅ fish est déjà installé"
+    echo "✅ fish is already installed"
 fi
 progress
 
-# Création des liens symboliques pour les configurations
-echo -e "\n🔗 Création des liens symboliques..."
-for dir in kitty fish nvim tmux doom; do
+# Creating symlinks for configurations
+echo -e "\n🔗 Creating symlinks..."
+for dir in wezterm fish nvim tmux doom; do
     TARGET=$CONFIG_DIR/$dir
     SOURCE=$DOTFILES_DIR/$dir
 
     [ -e "$TARGET" ] && rm -rf "$TARGET"
     ln -s "$SOURCE" "$TARGET"
-    echo "🔗 Lien créé : $SOURCE -> $TARGET"
+    echo "🔗 Link created: $SOURCE -> $TARGET"
 done
 progress
 
-# Installation de starship
-echo -e "\n✨ Installation de starship..."
+# Installing starship
+echo -e "\n✨ Installing starship..."
 if ! command_exists starship; then
-    echo "🚧 Installation de starship..."
+    echo "🚧 Installing starship..."
     curl -sS https://starship.rs/install.sh | sh
 else
-    echo "✅ starship est déjà installé"
+    echo "✅ starship is already installed"
 fi
 progress
 
-# Configuration de starship
-echo -e "\n🔗 Configuration de starship..."
+# Configuring starship
+echo -e "\n🔗 Configuring starship..."
 STARSHIP_CONFIG=~/.config/starship.toml
 [ -e "$STARSHIP_CONFIG" ] && rm -f "$STARSHIP_CONFIG"
 ln -s "$DOTFILES_DIR/starship.toml" "$STARSHIP_CONFIG"
-echo "🔗 Lien créé : $DOTFILES_DIR/starship.toml -> $STARSHIP_CONFIG"
+echo "🔗 Link created: $DOTFILES_DIR/starship.toml -> $STARSHIP_CONFIG"
 progress
 
-echo -e "\n🎉 Installation terminée avec succès ! 🚀"
+echo -e "\n🎉 Installation completed successfully! 🚀"
 
