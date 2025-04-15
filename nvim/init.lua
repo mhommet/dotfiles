@@ -1,37 +1,18 @@
-vim.g.base46_cache = vim.fn.stdpath 'data' .. '/base46/'
-vim.g.mapleader = ' '
+-- Measure startup time
+local start = vim.loop.hrtime()
 
--- bootstrap lazy and all plugins
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-
-if not vim.uv.fs_stat(lazypath) then
-    local repo = 'https://github.com/folke/lazy.nvim.git'
-    vim.fn.system { 'git', 'clone', '--filter=blob:none', repo, '--branch=stable', lazypath }
+-- Load core settings, keymaps, and autocommands
+local modules = { 'set', 'remap', 'autocmd' }
+for _, module in ipairs(modules) do
+    local ok, err = pcall(require, module)
+    if not ok then
+        vim.notify('Error loading module: ' .. module .. '\n\n' .. err, vim.log.levels.ERROR)
+    end
 end
 
-vim.opt.rtp:prepend(lazypath)
+-- Load plugins (lazy.nvim)
+local ok, err = pcall(require, 'loader')
+if not ok then
+    vim.notify('Error loading plugins:\n\n' .. err, vim.log.levels.ERROR)
+end
 
-local lazy_config = require 'configs.lazy'
-
--- load plugins
-require('lazy').setup({
-    {
-        'NvChad/NvChad',
-        lazy = false,
-        branch = 'v2.5',
-        import = 'nvchad.plugins',
-    },
-
-    { import = 'plugins' },
-}, lazy_config)
-
--- load theme
-dofile(vim.g.base46_cache .. 'defaults')
-dofile(vim.g.base46_cache .. 'statusline')
-
-require 'options'
-require 'nvchad.autocmds'
-
-vim.schedule(function()
-    require 'mappings'
-end)
