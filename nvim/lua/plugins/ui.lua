@@ -108,6 +108,15 @@ return {
 			local alpha = require("alpha")
 			local dashboard = require("alpha.themes.dashboard")
 
+			dashboard.config.layout = {
+				{ type = "padding", val = 1 },
+				dashboard.section.header,
+				{ type = "padding", val = 2 },
+				dashboard.section.buttons,
+				{ type = "padding", val = 1 },
+				dashboard.section.footer,
+			}
+
 			-- Nouveau logo ASCII
 			local art = {
 				[[]],
@@ -130,31 +139,42 @@ return {
 				[[]],
 			}
 
-			-- Calculer l'espace vertical pour centrer l'art
-			local total_lines = vim.o.lines -- hauteur totale de la fenêtre
-			local art_lines = #art -- nombre de lignes de l'art
-			local padding_top = math.floor((total_lines - art_lines) / 2) -
-			    2     -- réduire de 2 pour remonter l'art
-			local padding_bottom = total_lines - art_lines -
-			    padding_top -- s'assurer qu'il reste un espace égal en bas
-
-			-- Remplir l'espace avec des lignes vides avant l'art
 			local centered_art = {}
-			for i = 1, padding_top do
-				table.insert(centered_art, "") -- ajouter des lignes vides avant l'art
+			for _ = 1, 3 do
+				table.insert(centered_art, "")
 			end
 			for _, line in ipairs(art) do
-				table.insert(centered_art, line) -- ajouter l'art ASCII
+				table.insert(centered_art, line)
 			end
-			for i = 1, padding_bottom do
-				table.insert(centered_art, "") -- ajouter des lignes vides après l'art
-			end
-
-			-- Assigner l'art centré à la section header
 			dashboard.section.header.val = centered_art
 
 			-- Vide les boutons
 			dashboard.section.buttons.val = {}
+
+			-- Footer
+
+			local function footer()
+				-- Neovim version, time and date
+				local version = vim.version()
+				local nvim_version = string.format("Neovim %d.%d.%d", version.major, version.minor,
+					version.patch)
+
+				-- Startup time (safe fallback)
+				local startup_time = "N/A"
+				if vim.g.startuptime_start then
+					startup_time = string.format("%.2f",
+						vim.fn.reltimefloat(vim.fn.reltime(vim.g.startuptime_start)))
+				end
+
+				local footer_text = string.format(
+					" %s - Started in  %s ms ",
+					nvim_version,
+					startup_time
+				)
+
+				return footer_text
+			end
+			dashboard.section.footer.val = footer()
 
 			-- Configurer Alpha
 			alpha.setup(dashboard.opts)

@@ -1,5 +1,5 @@
 -- Measure startup time
-local start = vim.loop.hrtime()
+vim.g.startuptime_start = vim.fn.reltime()
 
 -- Load core settings, keymaps, and autocommands
 local modules = { 'set', 'remap', 'autocmd' }
