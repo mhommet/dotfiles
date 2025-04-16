@@ -1,6 +1,8 @@
 return {
 	'goolord/alpha-nvim',
+	dependencies = { 'nvim-tree/nvim-web-devicons', 'rcarriga/nvim-notify' },
 	config = function()
+		-- We don't need to suppress errors here as Noice was configured to filter them
 		local alpha = require("alpha")
 		local dashboard = require("alpha.themes.dashboard")
 
@@ -13,7 +15,7 @@ return {
 			dashboard.section.footer,
 		}
 
-		-- Nouveau logo ASCII
+		-- ASCII Art Logo
 		local art = {
 			[[]],
 			[[                      ██████                     ]],
@@ -44,11 +46,18 @@ return {
 		end
 		dashboard.section.header.val = centered_art
 
-		-- Vide les boutons
-		dashboard.section.buttons.val = {}
+		-- Navigation Buttons with Emojis
+		dashboard.section.buttons.val = {
+            dashboard.button("f", "🔍  Find File", ":Telescope find_files<CR>"),
+            dashboard.button("e", "✨  New File", ":ene <BAR> startinsert<CR>"),
+            dashboard.button("r", "🕒  Recent Files", ":Telescope oldfiles<CR>"),
+            dashboard.button("t", "🔎  Find Text", ":Telescope live_grep<CR>"),
+            dashboard.button("c", "⚙️   Configuration", ":e $MYVIMRC <CR>"),
+            dashboard.button("l", "📦  Lazy", ":Lazy<CR>"),
+            dashboard.button("q", "🚪  Quit", ":qa<CR>"),
+		}
 
-		-- Footer
-
+		-- Footer with system info and plugins
 		local function footer()
 			-- Neovim version, time and date
 			local version = vim.version()
@@ -61,18 +70,44 @@ return {
 				startup_time = string.format("%.2f",
 					vim.fn.reltimefloat(vim.fn.reltime(vim.g.startuptime_start)))
 			end
-
+            
+            -- Get plugin statistics from lazy.nvim
+            local stats = require("lazy").stats()
+            local plugins_loaded = stats.loaded
+            local plugins_total = stats.count
+            local plugins_startuptime = string.format("%.2f", stats.startuptime)
+            
+            -- Format with plugins info
 			local footer_text = string.format(
-				" %s - Started in  %s ms ",
+				" %s | Started in %s ms | Plugins: %d/%d loaded in %s ms ",
 				nvim_version,
-				startup_time
+				startup_time,
+                plugins_loaded,
+                plugins_total,
+                plugins_startuptime
 			)
 
 			return footer_text
 		end
+        
 		dashboard.section.footer.val = footer()
+        dashboard.section.footer.opts.hl = "AlphaFooter"
 
-		-- Configurer Alpha
+		-- Configure Alpha
 		alpha.setup(dashboard.opts)
+        
+        -- Auto-command to update footer when all plugins are loaded
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "LazyVimStarted",
+            callback = function()
+                dashboard.section.footer.val = footer()
+                pcall(vim.cmd.AlphaRedraw)
+            end,
+        })
+        
+        -- Set up nvim-notify after Alpha is loaded
+        if vim._original_notify then
+            vim.notify = vim._original_notify
+        end
 	end
 } 

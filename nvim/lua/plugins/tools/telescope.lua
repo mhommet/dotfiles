@@ -17,6 +17,9 @@ return {
     -- UI Select: Better UI for Telescope pickers
     { 'nvim-telescope/telescope-ui-select.nvim' },
 
+    -- Integration with Trouble
+    { 'folke/trouble.nvim' },
+
     -- Icons: Use nvim-web-devicons if NERD Fonts are available
     {
       'nvim-tree/nvim-web-devicons',
@@ -27,6 +30,18 @@ return {
   config = function()
     -- Telescope setup
     require('telescope').setup {
+      defaults = {
+        mappings = {
+          i = {
+            -- Send selected items to trouble (using the updated API)
+            ["<c-t>"] = function() require("trouble.sources.telescope").open() end,
+          },
+          n = {
+            -- Send selected items to trouble (using the updated API)
+            ["<c-t>"] = function() require("trouble.sources.telescope").open() end,
+          },
+        },
+      },
       extensions = {
         ['ui-select'] = { require('telescope.themes').get_dropdown() }, -- Dropdown theme for UI Select
       },

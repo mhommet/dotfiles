@@ -14,7 +14,10 @@ return {
         'saadparwaiz1/cmp_luasnip',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-path',
-        'zbirenbaum/copilot-cmp',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-cmdline',
+        'hrsh7th/cmp-emoji',
+        'onsails/lspkind.nvim',
     },
     config = function()
         local cmp = require('cmp')
@@ -52,16 +55,15 @@ return {
                 end, { 'i', 's' }),
             }),
             sources = cmp.config.sources({
-                { name = 'copilot' },
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
-            }, {
+                { name = 'buffer' },
                 { name = 'path' },
+                { name = 'emoji' },
             }),
             sorting = {
                 priority_weight = 2,
                 comparators = {
-                    require("copilot_cmp.comparators").prioritize,
                     cmp.config.compare.offset,
                     cmp.config.compare.exact,
                     cmp.config.compare.score,
@@ -73,6 +75,40 @@ return {
                     cmp.config.compare.order,
                 },
             },
+            window = {
+                completion = {
+                    winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+                    col_offset = -3,
+                    side_padding = 0,
+                },
+                documentation = {
+                    winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+                }
+            },
+            completion = {
+                autocomplete = { 'InsertEnter', 'TextChanged' },
+            },
+            view = {
+                entries = "custom",
+            },
         }
+        
+        -- Command-line completion setup
+        cmp.setup.cmdline(':', {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+                { name = 'path' }
+            }, {
+                { name = 'cmdline' }
+            })
+        })
+        
+        -- Search completion setup
+        cmp.setup.cmdline('/', {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+                { name = 'buffer' }
+            }
+        })
     end,
 } 
