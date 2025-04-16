@@ -14,6 +14,7 @@ return {
         'saadparwaiz1/cmp_luasnip',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-path',
+        'zbirenbaum/copilot-cmp',
     },
     config = function()
         local cmp = require('cmp')
@@ -51,11 +52,27 @@ return {
                 end, { 'i', 's' }),
             }),
             sources = cmp.config.sources({
+                { name = 'copilot' },
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
             }, {
                 { name = 'path' },
             }),
+            sorting = {
+                priority_weight = 2,
+                comparators = {
+                    require("copilot_cmp.comparators").prioritize,
+                    cmp.config.compare.offset,
+                    cmp.config.compare.exact,
+                    cmp.config.compare.score,
+                    cmp.config.compare.recently_used,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.kind,
+                    cmp.config.compare.sort_text,
+                    cmp.config.compare.length,
+                    cmp.config.compare.order,
+                },
+            },
         }
     end,
 } 
