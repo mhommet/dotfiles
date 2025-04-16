@@ -66,21 +66,4 @@ return {
             }
         end
     },
-    
-    -- Show color column
-    {
-        'lukas-reineke/virt-column.nvim',
-        event = "BufReadPost",
-        config = function()
-            require("virt-column").setup({
-                char = "│",
-                virtcolumn = "80,120",
-                highlight = "LineNr",
-                exclude = {
-                    filetypes = { "help", "text", "markdown", "NvimTree", "lazy", "mason" },
-                    buftypes = { "terminal", "nofile", "quickfix", "prompt" },
-                }
-            })
-        end
-    }
 } 
