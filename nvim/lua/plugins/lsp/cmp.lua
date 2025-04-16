@@ -22,7 +22,15 @@ return {
     config = function()
         local cmp = require('cmp')
         local luasnip = require('luasnip')
-
+        local lspkind = require('lspkind')
+        
+        -- Helper function to check if there are words before cursor
+        local has_words_before = function()
+            if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+            local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+            return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+        end
+        
         cmp.setup {
             snippet = {
                 expand = function(args)
@@ -36,8 +44,8 @@ return {
                 ['<C-e>'] = cmp.mapping.abort(),
                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
                 ['<Tab>'] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
+                    if cmp.visible() and has_words_before() then
+                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
                     elseif luasnip.expand_or_jumpable() then
                         luasnip.expand_or_jump()
                     else
@@ -54,12 +62,35 @@ return {
                     end
                 end, { 'i', 's' }),
             }),
+            formatting = {
+                format = lspkind.cmp_format({
+                    mode = 'symbol_text',
+                    maxwidth = 50,
+                    ellipsis_char = '...',
+                    show_labelDetails = true,
+                    symbol_map = {
+                        Copilot = "",
+                    },
+                    before = function(entry, vim_item)
+                        if entry.source.name == 'emoji' then
+                            vim_item.kind = '󰱫'
+                            vim_item.kind_hl_group = 'CmpItemKindEmoji'
+                        end
+                        
+                        if entry.source.name == 'copilot' then
+                            vim_item.kind_hl_group = 'CmpItemKindCopilot'
+                        end
+                        
+                        return vim_item
+                    end
+                })
+            },
             sources = cmp.config.sources({
-                { name = 'nvim_lsp' },
-                { name = 'luasnip' },
-                { name = 'buffer' },
-                { name = 'path' },
-                { name = 'emoji' },
+                { name = 'nvim_lsp', group_index = 2 },
+                { name = 'luasnip', group_index = 2 },
+                { name = 'buffer', group_index = 2 },
+                { name = 'path', group_index = 2 },
+                { name = 'emoji', group_index = 2 },
             }),
             sorting = {
                 priority_weight = 2,
@@ -92,6 +123,9 @@ return {
                 entries = "custom",
             },
         }
+        
+        -- Set custom highlight for Copilot suggestions
+        vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644", bold = true })
         
         -- Command-line completion setup
         cmp.setup.cmdline(':', {
