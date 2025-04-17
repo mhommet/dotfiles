@@ -21,5 +21,3 @@ vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move focus to the upper window'
 -- [[ RipSubstitute ]]
 vim.keymap.set('n', '<leader>rr', ':RipSubstitute<CR>', { desc = 'RipSubstitute' })
 
--- [[ Mini.nvim files ]]
-vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open()<CR>', { desc = 'Open MiniFiles' })
