@@ -1,6 +1,21 @@
 return {
   'nvim-telescope/telescope.nvim',
-  event = 'VimEnter',        -- Load on VimEnter for better startup performance
+  cmd = 'Telescope',         -- Load only on Telescope command
+  keys = {                   -- Or when a configured shortcut is used
+    '<leader>sh',
+    '<leader>sk',
+    '<leader><leader>',
+    '<leader>ss',
+    '<leader>sw',
+    '<leader>sg',
+    '<leader>sd',
+    '<leader>sr',
+    '<leader>s.',
+    '<leader>sb',
+    '<leader>/',
+    '<leader>s/',
+    '<leader>sn',
+  },
   branch = '0.1.x',          -- Use a stable branch for compatibility
   dependencies = {
     'nvim-lua/plenary.nvim', -- Utility functions required by Telescope

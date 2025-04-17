@@ -1,8 +1,19 @@
 return {
 	'folke/which-key.nvim',
-	event = 'VimEnter',
+	keys = { "<leader>", "[", "]", "g" },
+	init = function()
+		vim.o.timeout = true
+		vim.o.timeoutlen = 300
+	end,
 	config = function()
-		require('which-key').setup()
+		require('which-key').setup({
+			plugins = {
+				presets = {
+					operators = false,
+					motions = false,
+				},
+			},
+		})
 		require('which-key').add {
 			{ '<leader>d', group = 'Document' },
 			{ '<leader>r', group = 'Refactor' },

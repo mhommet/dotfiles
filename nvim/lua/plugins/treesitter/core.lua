@@ -1,5 +1,8 @@
 return {
     'nvim-treesitter/nvim-treesitter',
+    build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
     opts = {
         ensure_installed = {
             'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline',

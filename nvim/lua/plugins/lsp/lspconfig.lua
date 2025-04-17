@@ -25,6 +25,8 @@ return {
             lazy = true,
         },
     },
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "LspInfo", "LspInstall", "LspUninstall" },
     config = function()
         local lspconfig = require('lspconfig')
         local mason = require('mason')

@@ -11,6 +11,9 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim and load plugins
 require('lazy').setup({
+    -- Optimization settings
+    { import = "plugins.optimize" },
+    
     -- Load all plugins from organized subdirectories
     { import = "plugins.ui" },
     { import = "plugins.editor" },
@@ -19,4 +22,67 @@ require('lazy').setup({
     { import = "plugins.git" },
     { import = "plugins.ai" },
     { import = "plugins.tools" },
+}, {
+    defaults = {
+        -- By default, set all plugins to lazy load
+        lazy = true,
+        -- Don't set version for packages that are not pinned
+        version = false,
+    },
+    -- Enable performance profiling
+    performance = {
+        -- Cache plugin loads
+        cache = {
+            enabled = true,
+        },
+        reset_packpath = true, -- Reset the package path to improve startup time
+        rtp = {
+            reset = true,      -- Reset the runtime path to improve startup time
+            -- Disable some runtime plugins
+            disabled_plugins = {
+                "gzip",
+                "matchit",
+                "matchparen",
+                "netrwPlugin",
+                "tarPlugin",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+                -- Additional plugins to disable
+                "spellfile",
+                "shada",
+                "man",
+                "2html_plugin",
+                "getscript",
+                "logipat",
+                "rrhelper",
+                "vimball",
+            },
+        },
+        -- Optimize loading
+        loader = {
+            -- Don't check if plugins exist
+            check_rtp = false,
+        },
+    },
+    -- Change checker settings to weekly
+    checker = {
+        enabled = true,
+        frequency = 604800, -- check for updates every week
+        notify = false,     -- disable update notifications
+    },
+    -- Optimize UI loading display
+    ui = {
+        border = "rounded",
+        icons = {
+            loaded = "✓",
+            not_loaded = "○",
+        },
+        throttle = 100, -- Limit UI updates
+    },
+    -- Disable profiling by default (too expensive)
+    profiling = {
+        loader = false,
+        require = false,
+    },
 })

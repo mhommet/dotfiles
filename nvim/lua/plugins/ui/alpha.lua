@@ -1,6 +1,34 @@
 return {
 	'goolord/alpha-nvim',
-	dependencies = { 'nvim-tree/nvim-web-devicons', 'rcarriga/nvim-notify' },
+	lazy = false, -- Dashboard must be loaded immediately for the welcome screen
+	priority = 900, -- Priority just after the theme
+	dependencies = { 
+		{ 
+			'nvim-tree/nvim-web-devicons', 
+			lazy = true,
+			module = true,
+		},
+		{ 
+			'rcarriga/nvim-notify', 
+			lazy = true,
+			module = true,
+			init = function()
+				-- Store the real notify until alpha is loaded
+				if not vim._original_notify then
+					vim._original_notify = vim.notify
+				end
+				
+				-- Use a basic notify function until nvim-notify is loaded
+				vim.notify = function(msg, level, opts)
+					if vim._original_notify then
+						return vim._original_notify(msg, level, opts)
+					else
+						return vim.api.nvim_echo({{msg, level or "INFO"}}, true, {})
+					end
+				end
+			end,
+		},
+	},
 	config = function()
 		-- We don't need to suppress errors here as Noice was configured to filter them
 		local alpha = require("alpha")
@@ -105,9 +133,12 @@ return {
             end,
         })
         
-        -- Set up nvim-notify after Alpha is loaded
-        if vim._original_notify then
-            vim.notify = vim._original_notify
-        end
+        -- Load nvim-notify lazily after Alpha is done
+        vim.defer_fn(function()
+            require("lazy").load({ plugins = { "nvim-notify" }})
+            if vim._original_notify then
+                vim.notify = vim._original_notify
+            end
+        end, 500)
 	end
 } 

@@ -1,9 +1,12 @@
 return {
     'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
+    event = "InsertEnter",
+    cmd = "CmpStatus",
     dependencies = {
         {
             'L3MON4D3/LuaSnip',
+            lazy = true,
+            dependencies = {},
             build = (function()
                 if vim.fn.has('win32') == 1 or vim.fn.executable('make') == 0 then
                     return
@@ -11,13 +14,12 @@ return {
                 return 'make install_jsregexp'
             end)(),
         },
-        'saadparwaiz1/cmp_luasnip',
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-cmdline',
-        'hrsh7th/cmp-emoji',
-        'onsails/lspkind.nvim',
+        { 'saadparwaiz1/cmp_luasnip', lazy = true },
+        { 'hrsh7th/cmp-nvim-lsp', lazy = true },
+        { 'hrsh7th/cmp-path', lazy = true },
+        { 'hrsh7th/cmp-buffer', lazy = true },
+        { 'hrsh7th/cmp-emoji', lazy = true },
+        { 'onsails/lspkind.nvim', lazy = true },
     },
     config = function()
         local cmp = require('cmp')
@@ -127,22 +129,34 @@ return {
         -- Set custom highlight for Copilot suggestions
         vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644", bold = true })
         
-        -- Command-line completion setup
-        cmp.setup.cmdline(':', {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
-                { name = 'path' }
-            }, {
-                { name = 'cmdline' }
+        -- Setup function for cmdline (will be called lazily)
+        local setup_cmdline = function()
+            -- Only require cmdline plugin when needed
+            require("lazy").load({ plugins = { "cmp-cmdline" }})
+            -- Command-line completion setup
+            cmp.setup.cmdline(':', {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = cmp.config.sources({
+                    { name = 'path' }
+                }, {
+                    { name = 'cmdline' }
+                })
             })
-        })
+            
+            -- Search completion setup
+            cmp.setup.cmdline('/', {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = {
+                    { name = 'buffer' }
+                }
+            })
+        end
         
-        -- Search completion setup
-        cmp.setup.cmdline('/', {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = {
-                { name = 'buffer' }
-            }
+        -- Create autocmd to set up cmdline only when it's needed
+        vim.api.nvim_create_autocmd('CmdlineEnter', {
+            group = vim.api.nvim_create_augroup('CmpCmdline', { clear = true }),
+            once = true, -- Only trigger once
+            callback = setup_cmdline
         })
     end,
 } 
