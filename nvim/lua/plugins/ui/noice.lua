@@ -1,6 +1,7 @@
 return {
     {
         'rcarriga/nvim-notify',
+        lazy = true,
         config = function()
             local notify = require('notify')
             notify.setup({
@@ -35,9 +36,25 @@ return {
     },
     {
         'folke/noice.nvim',
+        event = "VeryLazy",
+        cmd = {
+            "NoiceEnable",
+            "NoiceDisable",
+            "NoiceToggle",
+            "NoiceErrors",
+            "NoiceLast",
+            "NoiceTelescope",
+        },
+        keys = {
+            { "<leader>fn", function() require("noice").cmd("telescope") end, desc = "Noice Telescope" },
+            { "<leader>nl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+            { "<leader>nh", function() require("noice").cmd("history") end, desc = "Noice History" },
+            { "<leader>nd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
+        },
         dependencies = {
             'MunifTanjim/nui.nvim',
             'rcarriga/nvim-notify',
+            'hrsh7th/nvim-cmp', -- Need cmp for cmdline
         },
         config = function()
             require('noice').setup({
@@ -137,23 +154,6 @@ return {
                     inc_rename = true,
                 },
             })
-            
-            -- Keymaps for notification and command history
-            vim.keymap.set("n", "<leader>fn", function()
-                require("noice").cmd("telescope")
-            end, { desc = "Noice Telescope" })
-            
-            vim.keymap.set("n", "<leader>nl", function()
-                require("noice").cmd("last")
-            end, { desc = "Noice Last Message" })
-            
-            vim.keymap.set("n", "<leader>nh", function()
-                require("noice").cmd("history")
-            end, { desc = "Noice History" })
-            
-            vim.keymap.set("n", "<leader>nd", function()
-                require("noice").cmd("dismiss")
-            end, { desc = "Dismiss All" })
         end,
     }
 } 

@@ -20,6 +20,7 @@ return {
         { 'hrsh7th/cmp-buffer', lazy = true },
         { 'hrsh7th/cmp-emoji', lazy = true },
         { 'onsails/lspkind.nvim', lazy = true },
+        { 'hrsh7th/cmp-cmdline', lazy = true },
     },
     config = function()
         local cmp = require('cmp')
@@ -129,34 +130,25 @@ return {
         -- Set custom highlight for Copilot suggestions
         vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644", bold = true })
         
-        -- Setup function for cmdline (will be called lazily)
-        local setup_cmdline = function()
-            -- Only require cmdline plugin when needed
-            require("lazy").load({ plugins = { "cmp-cmdline" }})
-            -- Command-line completion setup
-            cmp.setup.cmdline(':', {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = 'path' }
-                }, {
-                    { name = 'cmdline' }
-                })
-            })
-            
-            -- Search completion setup
-            cmp.setup.cmdline('/', {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = 'buffer' }
-                }
-            })
-        end
+        -- Setup cmdline completion right away (needed for noice.nvim)
+        require("lazy").load({ plugins = { "cmp-cmdline" }})
         
-        -- Create autocmd to set up cmdline only when it's needed
-        vim.api.nvim_create_autocmd('CmdlineEnter', {
-            group = vim.api.nvim_create_augroup('CmpCmdline', { clear = true }),
-            once = true, -- Only trigger once
-            callback = setup_cmdline
+        -- Command-line completion setup
+        cmp.setup.cmdline(':', {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+                { name = 'path' }
+            }, {
+                { name = 'cmdline' }
+            })
+        })
+        
+        -- Search completion setup
+        cmp.setup.cmdline('/', {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+                { name = 'buffer' }
+            }
         })
     end,
 } 
