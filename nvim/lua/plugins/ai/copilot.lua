@@ -1,5 +1,5 @@
 return {
     "github/copilot.vim",
-    event = "InsertEnter",
+    event = "BufRead",
     cmd = "Copilot",
 }
