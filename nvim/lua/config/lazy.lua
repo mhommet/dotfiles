@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
     -- Optimization settings
     { import = "plugins.optimize" },
-    
+
     -- Load all plugins from organized subdirectories
     { import = "plugins.ui" },
     { import = "plugins.editor" },
