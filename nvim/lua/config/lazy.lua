@@ -11,8 +11,17 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim and load plugins
 require('lazy').setup({
-    -- Load all plugins
-    { import = "plugins" },
+    -- Optimization settings
+    { import = "plugins.optimize" },
+
+    -- Load all plugins from organized subdirectories
+    { import = "plugins.ui" },
+    { import = "plugins.editor" },
+    { import = "plugins.lsp" },
+    { import = "plugins.treesitter" },
+    { import = "plugins.git" },
+    { import = "plugins.ai" },
+    { import = "plugins.tools" },
 }, {
     defaults = {
         -- By default, set all plugins to lazy load
