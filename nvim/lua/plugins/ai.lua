@@ -1,4 +1,8 @@
-return {
+return {{
+    "github/copilot.vim",
+    event = "BufRead",
+    cmd = "Copilot",
+},{
     "olimorris/codecompanion.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -15,4 +19,6 @@ return {
             },
         },
     },
+}
+
 }

@@ -12,4 +12,4 @@ return {
 		-- Make the MiniFiles global to avoid "not found" errors
 		_G.MiniFiles = require("mini.files")
 	end,
-} 
+}
