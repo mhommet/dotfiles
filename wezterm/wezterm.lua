@@ -23,7 +23,7 @@ config.window_padding = {
   top = 20,
   bottom = 20,
 }
-config.window_background_opacity = 0.95
+config.window_background_opacity = 0.9
 
 -- Keyboard shortcuts
 config.keys = {
