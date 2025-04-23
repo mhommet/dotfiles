@@ -1,16 +1,14 @@
 local wezterm = require('wezterm')
-local theme = wezterm.plugin.require('https://github.com/neapsix/wezterm').main
 local config = {}
 
 if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
+config.color_scheme = 'One Dark (Gogh)'
+
 config.font = wezterm.font('JetBrainsMono Nerd Font')
 config.font_size = 12.0
-
-config.colors = theme.colors()
-config.window_frame = theme.window_frame()
 
 -- No tab bar
 config.enable_tab_bar = false
@@ -23,7 +21,7 @@ config.window_padding = {
   top = 20,
   bottom = 20,
 }
-config.window_background_opacity = 0.9
+config.window_background_opacity = 0.95
 
 -- Keyboard shortcuts
 config.keys = {
