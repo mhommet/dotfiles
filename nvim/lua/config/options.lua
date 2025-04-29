@@ -3,4 +3,5 @@
 -- Add any additional options here
 vim.g.autoformat = false -- globally
 vim.opt.clipboard = "unnamedplus"
+vim.opt.relativenumber = false
 
