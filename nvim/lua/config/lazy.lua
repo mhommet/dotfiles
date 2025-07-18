@@ -1,52 +1,79 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+-- Ensure lazy.nvim is installed
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+if not vim.uv.fs_stat(lazypath) then
+    local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+    local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
     if vim.v.shell_error ~= 0 then
-        vim.api.nvim_echo({
-            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-            { out, "WarningMsg" },
-            { "\nPress any key to exit..." },
-        }, true, {})
-        vim.fn.getchar()
-        os.exit(1)
+        error('Error cloning lazy.nvim:\n' .. out)
     end
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({
-    spec = {
-        -- add LazyVim and import its plugins
-        { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-        -- import/override with your plugins
-        { import = "plugins" },
-    },
+-- Setup lazy.nvim and load plugins
+require('lazy').setup({
+    -- Load all plugins
+    { import = "plugins" },
+}, {
     defaults = {
-        -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
-        -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
-        lazy = false,
-        -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
-        -- have outdated releases, which may break your Neovim install.
-        version = false, -- always use the latest git commit
-        -- version = "*", -- try installing the latest stable version for plugins that support semver
+        -- By default, set all plugins to lazy load
+        lazy = true,
+        -- Don't set version for packages that are not pinned
+        version = false,
     },
-    checker = {
-        enabled = true, -- check for plugin updates periodically
-        notify = false, -- notify on update
-    }, -- automatically check for plugin updates
+    -- Enable performance profiling
     performance = {
+        -- Cache plugin loads
+        cache = {
+            enabled = true,
+        },
+        reset_packpath = true, -- Reset the package path to improve startup time
         rtp = {
-            -- disable some rtp plugins
+            reset = true,      -- Reset the runtime path to improve startup time
+            -- Disable some runtime plugins
             disabled_plugins = {
                 "gzip",
-                -- "matchit",
-                -- "matchparen",
-                -- "netrwPlugin",
+                "matchit",
+                "matchparen",
+                "netrwPlugin",
                 "tarPlugin",
                 "tohtml",
                 "tutor",
                 "zipPlugin",
+                -- Additional plugins to disable
+                "spellfile",
+                "shada",
+                "man",
+                "2html_plugin",
+                "getscript",
+                "logipat",
+                "rrhelper",
+                "vimball",
             },
         },
+        -- Optimize loading
+        loader = {
+            -- Don't check if plugins exist
+            check_rtp = false,
+        },
+    },
+    -- Change checker settings to weekly
+    checker = {
+        enabled = true,
+        frequency = 604800, -- check for updates every week
+        notify = false,     -- disable update notifications
+    },
+    -- Optimize UI loading display
+    ui = {
+        border = "rounded",
+        icons = {
+            loaded = "✓",
+            not_loaded = "○",
+        },
+        throttle = 100, -- Limit UI updates
+    },
+    -- Disable profiling by default (too expensive)
+    profiling = {
+        loader = false,
+        require = false,
     },
 })
