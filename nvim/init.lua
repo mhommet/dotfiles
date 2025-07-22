@@ -5,5 +5,4 @@ require('config.set')
 require('config.lazy')
 require('config.remap')
 
--- Set colorscheme
-vim.cmd("colorscheme dracula")
+vim.cmd.colorscheme "catppuccin"

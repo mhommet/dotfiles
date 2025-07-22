@@ -6,7 +6,7 @@ alias gpl="git pull"
 alias gfc="git fetch"
 
 # VIM
-alias nvim="$HOME/neovim/bin/nvim" # MACOS
+alias nvim="$HOME/nvim/bin/nvim" # MACOS
 alias vim="nvim"
 alias v="nvim"
 
