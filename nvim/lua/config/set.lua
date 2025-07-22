@@ -26,10 +26,10 @@ vim.opt.listchars = {      -- Define whitespace display characters
 }
 
 -- Tab settings
-vim.opt.tabstop = 4        -- Width of a tab character
-vim.opt.shiftwidth = 4     -- Width of indentation
-vim.opt.expandtab = true   -- Use spaces instead of tabs
-vim.opt.softtabstop = 4    -- Backspace removes 4 spaces
+vim.opt.tabstop = 4      -- Width of a tab character
+vim.opt.shiftwidth = 4   -- Width of indentation
+vim.opt.expandtab = true -- Use spaces instead of tabs
+vim.opt.softtabstop = 4  -- Backspace removes 4 spaces
 
 -- UI settings
 vim.opt.cursorline = true    -- Highlight the current line
@@ -46,6 +46,3 @@ vim.opt.splitbelow = true -- Open horizontal splits below
 vim.opt.updatetime = 100 -- Faster completion and diagnostics (in ms)
 vim.opt.timeoutlen = 300 -- Reduced timeout for mapped sequences (in ms)
 vim.opt.swapfile = false -- Disable swap files for reduced disk usage
-
--- Custom settings
-vim.g.format_on_save = 0 -- Disable automatic formatting on save
