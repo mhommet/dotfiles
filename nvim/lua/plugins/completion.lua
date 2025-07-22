@@ -344,6 +344,7 @@ return {{
             tailwindcss = {},
             emmet_ls = {},
             twiggy_language_server = {},
+            cobol_ls = {},
             lua_ls = {
                 settings = {
                     Lua = {
