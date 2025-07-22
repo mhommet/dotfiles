@@ -23,4 +23,4 @@ return {
         require('nvim-treesitter.install').prefer_git = true -- Prefer git for parser installations
         require('nvim-treesitter.configs').setup(opts)
     end,
-} 
+}

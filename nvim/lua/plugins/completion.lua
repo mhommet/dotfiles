@@ -231,6 +231,7 @@ return {{
                 'emmet_ls',       -- Emmet (HTML, CSS, etc.)
                 'twiggy_language_server', -- Twig
                 'lua_ls',         -- Lua
+                'cobol_ls',       -- Cobol
             },
         }
 
