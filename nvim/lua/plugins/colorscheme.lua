@@ -1,10 +1,4 @@
 return {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000,
-    config = function()
-        require("catppuccin").setup({
-            flavour = "mocha",
-        })
-    end
+  "nyoom-engineering/oxocarbon.nvim",
+  priority = 1000,
 }

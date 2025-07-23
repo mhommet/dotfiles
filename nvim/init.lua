@@ -6,4 +6,4 @@ require('config.lazy')
 require('config.remap')
 require('config.autocmd')
 
-vim.cmd.colorscheme "catppuccin"
+vim.cmd.colorscheme "oxocarbon"
