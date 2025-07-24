@@ -75,6 +75,9 @@ return {
     
             -- Configure linters by filetype
             lint.linters_by_ft = {
+                python = { 'pylint' },
+                javascript = { 'eslint' },
+                typescript = { 'eslint' },
                 markdown = { 'markdownlint' },
             }
     

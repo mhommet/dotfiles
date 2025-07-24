@@ -8,8 +8,22 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "cobol",
     callback = function()
-        vim.opt.colorcolumn = "7,72"
-    end,
+        vim.opt_local.colorcolumn = "7,72"
+        vim.opt_local.tabstop = 4
+        vim.opt_local.expandtab = true
+        vim.opt_local.textwidth = 72
+        -- Folding par divisions
+        vim.opt_local.foldmethod = "indent"
+        vim.opt_local.foldlevelstart = 1
+        
+        -- Highlights pour zones COBOL
+        vim.cmd [[
+            syntax match cobolMargeA "^......\zs "
+            syntax match cobolMargeB "^.\{7}\zs.\{65}"
+            highlight cobolMargeA guibg=#3a3a3a
+            highlight cobolMargeB guibg=#2a2a2a
+        ]]
+    end
 })
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {

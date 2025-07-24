@@ -19,7 +19,7 @@ return {{
         notify_on_error = false,
         formatters_by_ft = {
             lua = { 'stylua' },
-            python = { 'black' },
+            python = { 'ruff', 'black' }, -- Ruff + Black combo
             javascript = { 'prettier' },
             php = { { 'phpactor', 'format' } },
         },
