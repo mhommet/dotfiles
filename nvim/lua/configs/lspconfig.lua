@@ -44,7 +44,7 @@ mason_lspconfig.setup {
   ensure_installed = {
     'intelephense',   -- PHP
     'ts_ls',         -- JavaScript and TypeScript
-    'vue-language-server',          -- Vue.js
+    'vue_ls',          -- Vue.js
     'cssls',          -- CSS
     'tailwindcss',    -- Tailwind CSS
     'emmet_ls',       -- Emmet (HTML, CSS, etc.)

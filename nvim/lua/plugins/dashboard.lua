@@ -87,11 +87,6 @@ return {
             action = 'qa'
           },
         },
-        footer = {
-          '',
-          '🚀 Neovim is ready',
-          '🧠 v' .. vim.version().major .. '.' .. vim.version().minor .. '.' .. vim.version().patch,
-        }
       }
     })
   end
