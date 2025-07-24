@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     pattern = "*.jcl",
     callback = function()
         vim.bo.filetype = "jcl"
-        vim.opt.colorcolumn = "3,11,73" -- Marge A (//), séparateur (col 11), fin de ligne
+        vim.opt.colorcolumn = "1,2,11,73" -- Marge A (//), séparateur (col 11), fin de ligne
         vim.cmd [[
       syntax match jclMargeA "^//"
       highlight jclMargeA guifg=#ff5c57 gui=bold
