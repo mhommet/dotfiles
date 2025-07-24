@@ -1,3 +1,5 @@
+require "nvchad.autocmds"
+
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     pattern = { "*.cob", "*.cbl", "*.cpy" },
     callback = function()
@@ -15,7 +17,7 @@ vim.api.nvim_create_autocmd("FileType", {
         -- Folding par divisions
         vim.opt_local.foldmethod = "indent"
         vim.opt_local.foldlevelstart = 1
-        
+
         -- Highlights pour zones COBOL
         vim.cmd [[
             syntax match cobolMargeA "^......\zs "
