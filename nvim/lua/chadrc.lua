@@ -3,6 +3,7 @@ local M = {}
 
 M.base46 = {
 	theme = "everforest",
+  transparency = true
 }
 
 M.ui = {
