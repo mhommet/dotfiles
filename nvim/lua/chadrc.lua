@@ -2,7 +2,7 @@
 local M = {}
 
 M.base46 = {
-	theme = "oxocarbon",
+	theme = "everforest",
 }
 
 M.ui = {
