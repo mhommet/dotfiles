@@ -6,7 +6,7 @@ CONFIG_DIR=~/.config
 
 # Creating symlinks for configurations
 echo -e "\n🔗 Creating symlinks..."
-for dir in fish nvim tmux ghostty; do
+for dir in fish; do
     TARGET=$CONFIG_DIR/$dir
     SOURCE=$DOTFILES_DIR/$dir
 
