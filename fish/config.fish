@@ -10,6 +10,7 @@ alias gfc="git fetch"
 alias nvim="$HOME/nvim.appimage"
 alias vim="nvim"
 alias v="nvim"
+alias python="python3"
 
 starship init fish | source
 
