@@ -11,9 +11,6 @@ alias nvim="$HOME/nvim.appimage"
 alias vim="nvim"
 alias v="nvim"
 
-# TIC - Pointage script
-alias pointage="$HOME/pointage/pointage"
-
 starship init fish | source
 
 # Remove default fish greeting
