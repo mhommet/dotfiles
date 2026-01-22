@@ -1,304 +1,99 @@
-"$schema" = 'https://starship.rs/config-schema.json'
+# ~/.config/starship.toml
 
-# Configures the format of the prompt.
-format = """
-[](color_red0)\
-$os\
-$username\
-[](bg:color_orange fg:color_red0)\
-$directory\
-[](fg:color_orange bg:color_yellow)\
-$git_branch\
-$git_status\
-[](fg:color_yellow bg:color_green)\
-$c\
-$dotnet\
-$rust\
-$golang\
-$nodejs\
-$php\
-$java\
-$kotlin\
-$haskell\
-$python\
-$elixir\
-$elm\
-$gradle\
-$julia\
-$nim\
-$scala\
-[](fg:color_green bg:color_cyan)\
-$docker_context\
-[ ](color_cyan)\
-$fill\
-([ ](mono4)\
-$time\
-$battery\
-[](mono4))\
-$line_break$character"""
+add_newline = false
+command_timeout = 1000
+format = """$os$username$hostname$kubernetes$directory$git_branch$git_status"""
 
-# Sets the palette to "one_dark".
-palette = 'one_dark'
+# Drop ugly default prompt characters
+[character]
+success_symbol = ''
+error_symbol = ''
 
-# Sets the colors of the "one_dark" palette.
-[palettes.one_dark]
-mono0 = '#d7dae0' # terminal white, from the One Dark Pro VSCode theme.
-mono1 = '#abb2bf' # syntax_fg.
-mono2 = '#828997'
-mono3 = '#5c6370'
-mono4 = '#3f4451' # terminal black, from the One Dark Pro VSCode theme.
-color_red0 = '#e06c75'
-color_red1 = '#be5046'
-color_green = '#98c379'
-color_yellow = '#e5c07b'
-color_blue = '#61afef'
-color_purple = '#c678dd'
-color_cyan = '#56b6c2'
-color_orange = '#d19a66'
-syntax_fg = '#abb2bf'
-syntax_bg = '#282c34'
-color_bg2 = '#665c54'
-syntax_gutter = '#647382'
-syntax_accent = '#528cff'
+# ---
 
-# Module that displays the current OS.
 [os]
-disabled = false # Disabled by default
-style = "bg:color_red0 fg:syntax_bg"
-format = '[ $symbol ]($style)'
+format = '[$symbol](bold white) '   
+disabled = false
 
-# Sets custom symbols for each OS.
 [os.symbols]
-Alpine = ""
-Amazon = ""
-Android = "󰀲"
-Arch = ""
-CentOS = ""
-Debian = "󰣚"
-EndeavourOS = ""
-Fedora = "󰣛"
-FreeBSD = "󰣠"
-Gentoo = "󰣨"
-Illumos = ""
-Linux = "󰌽"
-Macos = "󰀵"
-Manjaro = "󱘊"
-Mint = "󰣭"
-NixOS = "󱄅"
-OpenBSD = ""
-openSUSE = ""
-Pop = ""
-Raspbian = ""
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
-Redox = "R"
-Solus = ""
-SUSE = ""
-Ubuntu = "󰕈"
-Unknown = ""
-Windows = "󰍲"
+Windows = ''
+Arch = '󰣇'
+Ubuntu = ''
+Macos = '󰀵'
 
-# Module that displays the current username.
+# ---
+
+# Shows the username
 [username]
+style_user = 'white bold'
+style_root = 'black bold'
+format = '[$user]($style) '
+disabled = false
 show_always = true
-style_user = "bold bg:color_red0 fg:syntax_bg"
-style_root = "bold italic bg:color_red0 fg:syntax_bg"
-format = '[ $user ]($style)'
 
-# Module that displays the current directory.
+# Shows the hostname
+[hostname]
+ssh_only = false
+format = 'on [$hostname](bold yellow) '
+disabled = false
+
+# Shows current directory
 [directory]
-style = "italic fg:syntax_bg bg:color_orange"
-format = "[ $path ]($style)"
-truncation_length = 3
-truncation_symbol = "…/"
+truncation_length = 1
+truncation_symbol = '…/'
+home_symbol = '󰋜 ~'
+read_only_style = '197'
+read_only = '  '
+format = 'at [$path]($style)[$read_only]($read_only_style) '
 
-# Sets the custom symbols for directories.
-[directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = "󰝚 "
-"Pictures" = " "
-"Developer" = "󰲋 "
-
-# Module that displays the current git branch.
+# Shows current git branch
 [git_branch]
-symbol = ""
-style = "bg:color_yellow"
-format = '[[ $symbol $branch ](fg:syntax_bg bg:color_yellow)]($style)'
+symbol = ' '
+format = 'via [$symbol$branch]($style)'
+# truncation_length = 4
+truncation_symbol = '…/'
+style = 'bold green'
 
-# Module that displays the current git status.
+# Shows current git status
 [git_status]
-style = "bg:color_green"
-format = '[[($all_status$ahead_behind )](fg:syntax_bg bg:color_yellow)]($style)'
+format = '[$all_status$ahead_behind]($style) '
+style = 'bold green'
+conflicted = '🏳'
+up_to_date = ''
+untracked = ' '
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
+stashed = ' '
+modified = ' '
+staged = '[++\($count\)](green)'
+renamed = '襁 '
+deleted = ' '
 
-# Language specific modules
-[nodejs]
-symbol = ""
-style = "bg:color_green"
-format = '[[ $symbol( $version) ](fg:syntax_bg bg:color_green)]($style)'
+# Shows kubernetes context and namespace
+[kubernetes]
+format = 'via [󱃾 $context\($namespace\)](bold purple) '
+disabled = false
 
-[c]
-symbol = " "
-style = "bg:color_green"
-format = '[[ $symbol( $version) ](fg:syntax_bg bg:color_green)]($style)'
+# ---
 
-[dotnet]
-symbol = "󰪮"
-style = "bg:color_green"
-format = '[[ $symbol( $version) ](fg:syntax_bg bg:color_green)]($style)'
+[vagrant]
+disabled = true
 
-[rust]
-symbol = ""
-style = "bg:color_green"
-format = '[[ $symbol( $version) ](fg:syntax_bg bg:color_green)]($style)'
+[docker_context]
+disabled = true
 
-[golang]
-symbol = ""
-style = "bg:color_green"
-format = '[[ $symbol( $version) ](fg:syntax_bg bg:color_green)]($style)'
-
-[php]
-symbol = " "
-style = "bg:color_green"
-format = '[[ $symbol( $version) ](fg:syntax_bg bg:color_green)]($style)'
-
-[java]
-symbol = " "
-style = "bg:color_green"
-format = '[[ $symbol( $version) ](fg:syntax_bg bg:color_green)]($style)'
-
-[kotlin]
-symbol = " "
-style = "bg:color_green"
-format = '[[ $symbol( $version) ](fg:syntax_bg bg:color_green)]($style)'
-
-[haskell]
-symbol = " "
-style = "bg:color_green"
-format = '[[ $symbol( $version) ](fg:syntax_bg bg:color_green)]($style)'
+[helm]
+disabled = true
 
 [python]
-symbol = " "
-style = "bg:color_green"
-format = '[[ $symbol( $version) ](fg:syntax_bg bg:color_green)]($style)'
+disabled = true
 
-[elixir]
-symbol = " "
-style = "bg:color_green"
-format = '[[ $symbol ($version) ](fg:syntax_bg bg:color_green)]($style)'
+[nodejs]
+disabled = true
 
-[elm]
-symbol = " "
-style = "bg:color_green"
-format = '[[ $symbol ($version) ](fg:syntax_bg bg:color_green)]($style)'
+[ruby]
+disabled = true
 
-[gradle]
-symbol = " "
-style = "bg:color_green"
-format = '[[ $symbol ($version) ](fg:syntax_bg bg:color_green)]($style)'
-
-[julia]
-symbol = " "
-style = "bg:color_green"
-format = '[[ $symbol ($version) ](fg:syntax_bg bg:color_green)]($style)'
-
-[nim]
-symbol = "󰆥 "
-style = "bg:color_green"
-format = '[[ $symbol ($version) ](fg:syntax_bg bg:color_green)]($style)'
-
-[scala]
-symbol = " "
-style = "bg:color_green"
-format = '[[ $symbol ($version) ](fg:syntax_bg bg:color_green)]($style)'
-
-# Module that displays the docker context.
-[docker_context]
-symbol = " "
-style = "bg:mono3"
-format = '[[ $symbol( $context) ](fg:syntax_fg bg:mono3)]($style)'
-
-# Module that fills the space between the left and right segments.
-[fill]
-symbol = " "
-
-# Module that displays the time.
-[time]
-disabled = false # Disabled by default
-use_12hr = true # Disable for 24h format without seconds
-style = "bg:mono4"
-format = '[[ 󰥔 $time ](fg:syntax_fg bg:mono4)]($style)'
-
-# Module that displays the battery level and status.
-[battery]
-format = '[$symbol $percentage ]($style)'
-
-# Battery symbols and colors for each threshold.
-[[battery.display]]
-threshold = 10
-style = "bold bg:mono4 fg:color_red1"
-discharging_symbol = "󰁺"
-charging_symbol = "󰢜"
-
-[[battery.display]]
-threshold = 20
-style = "bold bg:mono4 fg:color_red0"
-discharging_symbol = "󰁻"
-charging_symbol = "󰂆"
-
-[[battery.display]]
-threshold = 30
-style = "bold bg:mono4 fg:color_yellow"
-discharging_symbol = "󰁼"
-charging_symbol = "󰂇"
-
-[[battery.display]]
-threshold = 40
-style = "bold bg:mono4 fg:color_yellow"
-discharging_symbol = "󰁽"
-charging_symbol = "󰂈"
-
-[[battery.display]]
-threshold = 50
-style = "bold bg:mono4 fg:color_yellow"
-discharging_symbol = "󰁾"
-charging_symbol = "󰢝"
-
-[[battery.display]]
-threshold = 60
-style = "bold bg:mono4 fg:color_green"
-discharging_symbol = "󰁿"
-charging_symbol = "󰂉"
-
-[[battery.display]]
-threshold = 70
-style = "bold bg:mono4 fg:color_green"
-discharging_symbol = "󰂀"
-charging_symbol = "󰢞"
-
-[[battery.display]]
-threshold = 80
-style = "bold bg:mono4 fg:color_green"
-discharging_symbol = "󰂁"
-charging_symbol = "󰂊"
-
-[[battery.display]]
-threshold = 90
-style = "bold bg:mono4 fg:color_green"
-discharging_symbol = "󰂂"
-charging_symbol = "󰂋"
-
-[[battery.display]]
-style = "bold bg:mono4 fg:color_green"
-discharging_symbol = "󰁹"
-charging_symbol = "󰂅"
-threshold = 100
-
-# New line character
-[character]
-success_symbol = '[󰅂](bold fg:syntax_accent)'
-error_symbol = '[](bold fg:color_red1)'
-vimcmd_symbol = '[󰅁](bold fg:syntax_accent)'
-vimcmd_replace_one_symbol = '[󰅁](bold fg:color_purple)'
-vimcmd_replace_symbol = '[󰅁](bold fg:color_purple)'
-vimcmd_visual_symbol = '[󰅁](bold fg:color_yellow)'
+[terraform]
+disabled = true

@@ -42,11 +42,7 @@ mason.setup({
 
 mason_lspconfig.setup {
   ensure_installed = {
-    'intelephense',   -- PHP
     'ts_ls',         -- JavaScript and TypeScript
-    'cssls',          -- CSS
-    'tailwindcss',    -- Tailwind CSS
-    'emmet_ls',       -- Emmet (HTML, CSS, etc.)
     'lua_ls',         -- Lua
     'pyright',        -- Python LSP
     'ruff',          -- Python linter/formatter
@@ -98,9 +94,6 @@ local servers = {
     },
   },
   ts_ls = {},
-  cssls = {},
-  tailwindcss = {},
-  emmet_ls = {},
   lua_ls = {
     settings = {
       Lua = {
@@ -128,9 +121,17 @@ local servers = {
   ruff = {},
 }
 
--- Setup all servers
+-- Register default options for all servers (optional but recommended for 0.11+)
+-- This handles capabilities for you globally if supported, or you pass them below.
+-- Since you have specific capabilities defined, we will pass them individually.
+
 for server, config in pairs(servers) do
   config.on_attach = on_attach
   config.capabilities = capabilities
-  lspconfig[server].setup(config)
-end 
+  
+  -- 1. Register the configuration with Neovim's internal registry
+  vim.lsp.config(server, config)
+  
+  -- 2. Enable the server (this activates it for the correct filetypes)
+  vim.lsp.enable(server)
+end
