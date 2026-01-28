@@ -2,7 +2,7 @@
 local M = {}
 
 M.base46 = {
-	theme = "aura-dark",
+	theme = "rosepine",
   transparency = true
 }
 

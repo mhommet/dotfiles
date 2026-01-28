@@ -3,7 +3,8 @@
 SETUVAR __fish_initialized:4300
 SETUVAR _fisher_catppuccin_2F_fish_files:\x7e/\x2econfig/fish/themes/Catppuccin\x20Frappe\x2etheme\x1e\x7e/\x2econfig/fish/themes/Catppuccin\x20Latte\x2etheme\x1e\x7e/\x2econfig/fish/themes/Catppuccin\x20Macchiato\x2etheme\x1e\x7e/\x2econfig/fish/themes/Catppuccin\x20Mocha\x2etheme
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish\x0d
-SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ecatppuccin/fish\x0d\x1ecatppuccin/fish\x1erkbk60/onedark\x2dfish
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ecatppuccin/fish\x0d\x1ecatppuccin/fish\x1erkbk60/onedark\x2dfish\x1erose\x2dpine/fish
 SETUVAR _fisher_rkbk60_2F_onedark_2D_fish_files:\x7e/\x2econfig/fish/functions/set_onedark\x2efish\x1e\x7e/\x2econfig/fish/functions/set_onedark_color\x2efish\x1e\x7e/\x2econfig/fish/completions/set_onedark\x2efish\x1e\x7e/\x2econfig/fish/completions/set_onedark_color\x2efish
+SETUVAR _fisher_rose_2D_pine_2F_fish_files:\x7e/\x2econfig/fish/themes/Ros\u00e9\x20Pine\x20Auto\x2etheme\x1e\x7e/\x2econfig/fish/themes/Ros\u00e9\x20Pine\x20Dawn\x2etheme\x1e\x7e/\x2econfig/fish/themes/Ros\u00e9\x20Pine\x20Moon\x20Auto\x2etheme\x1e\x7e/\x2econfig/fish/themes/Ros\u00e9\x20Pine\x20Moon\x2etheme\x1e\x7e/\x2econfig/fish/themes/Ros\u00e9\x20Pine\x2etheme
 SETUVAR _fisher_upgraded_to_4_4:\x1d\x0d
-SETUVAR fish_user_paths:/usr/bin
+SETUVAR fish_user_paths:/home/milan/\x2elocal/bin\x1e/home/milan/\x2eopencode/bin\x1e/usr/bin
