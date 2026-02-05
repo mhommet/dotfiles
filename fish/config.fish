@@ -30,5 +30,3 @@ set -gx ANTHROPIC_API_KEY ""
 
 # Pipx PATH
 set PATH $PATH /home/milan/.local/bin
-
-fish_config theme choose "Rosé Pine Auto"
